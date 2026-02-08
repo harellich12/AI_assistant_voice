@@ -1,0 +1,18 @@
+File Path,Artifact Type,Mapped Epic,Mapped Tickets,Notes
+docs/requirements-v1.md,Planning,Platform Foundation,EPIC-PLAT-1,Product requirements baseline
+docs/architecture.md,Architecture,Platform Foundation,EPIC-PLAT-1;EPIC-AST-1;EPIC-CAL-1,System and container design
+docs/data-model.md,Architecture,Task Management Core,EPIC-TASK-1,Domain schema for task/event/audit
+docs/api-contracts.md,Architecture,Assistant Core Flow,EPIC-AST-1;EPIC-TASK-1;EPIC-CAL-1,Primary API contract source
+docs/security-privacy.md,Security,Ops and Release Readiness,EPIC-OPS-1,Security and privacy controls
+docs/roadmap-v1.md,Planning,Ops and Release Readiness,EPIC-OPS-1,Phase roadmap and milestones
+docs/backlog-v1.md,Planning,Task Management Core,EPIC-TASK-1;EPIC-CAL-1,Prioritized backlog source
+docs/integration-strategy.md,Integration,Calendar Provider 1,EPIC-CAL-1,Provider integration strategy
+docs/cost-estimate-v1.md,Planning,Ops and Release Readiness,EPIC-OPS-1,Cost model and assumptions
+docs/cost-calculator-single-user.csv,Planning,Ops and Release Readiness,EPIC-OPS-1,Single-user operating cost calculator
+docs/adr/0001-platform-and-architecture-baseline.md,ADR,Platform Foundation,EPIC-PLAT-1,Architecture decision baseline
+docs/stage-2-execution-design/mvp-scope-lock.md,Execution Design,Platform Foundation,TKT-026,MVP lock and gate reference
+docs/stage-2-execution-design/implementation-plan-sprint-1-3.md,Execution Design,Ops and Release Readiness,TKT-026,Sprint sequencing source
+docs/stage-2-execution-design/vertical-slice-spec-task-create.md,Execution Design,Assistant Core Flow,TKT-005;TKT-006;TKT-007;TKT-010,Vertical slice blueprint
+docs/stage-2-execution-design/dod-and-quality-gates.md,Execution Design,Ops and Release Readiness,TKT-024;TKT-025;TKT-026,Definition of done and quality gates
+docs/stage-3-build/build-plan.md,Build,Ops and Release Readiness,EPIC-PLAT-1;EPIC-AST-1;EPIC-TASK-1;EPIC-CAL-1;EPIC-OPS-1,Build sequencing reference
+docs/stage-3-build/tickets-stage-3.csv,Build,All,All Stage 3 tickets,Master implementation backlog

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Run Jira sync after each commit using the most recent commit range.
+# Never block the commit if Jira sync fails.
+if command -v npm >/dev/null 2>&1; then
+  npm run -s jira:sync -- --from HEAD~1 --to HEAD >/dev/null 2>&1 || {
+    echo "[post-commit] jira sync skipped/failed; commit kept" >&2
+  }
+fi

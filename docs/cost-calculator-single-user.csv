@@ -1,0 +1,55 @@
+Section,Item,Value,Unit,Formula/Notes
+Inputs,Users (MAU),1,users,Change this for more users
+Inputs,Active days per month,20,days,
+Inputs,Interactions per active day,15,interactions/day,
+Inputs,Input tokens per interaction,1200,tokens,
+Inputs,Output tokens per interaction,300,tokens,
+Inputs,Voice interaction share,0.4,ratio,0 to 1
+Inputs,User speech seconds per voice interaction,8,seconds,
+Inputs,Assistant speech seconds per voice interaction,10,seconds,
+Inputs,Low-cost routing share,0.9,ratio,0 to 1
+Inputs,Premium routing share,0.1,ratio,Auto-computed from low-cost share
+Inputs,OpenAI low-cost input price per 1M,$0.25 ,USD,Example: GPT-5 mini
+Inputs,OpenAI low-cost output price per 1M,$2.00 ,USD,Example: GPT-5 mini
+Inputs,OpenAI premium input price per 1M,$1.75 ,USD,Example: GPT-5.2
+Inputs,OpenAI premium output price per 1M,$14.00 ,USD,Example: GPT-5.2
+Inputs,Gemini low-cost input price per 1M,$0.30 ,USD,Example: Gemini 2.5 Flash
+Inputs,Gemini low-cost output price per 1M,$2.50 ,USD,Example: Gemini 2.5 Flash
+Inputs,Gemini premium input price per 1M,$1.25 ,USD,Example: Gemini 2.5 Pro
+Inputs,Gemini premium output price per 1M,$10.00 ,USD,Example: Gemini 2.5 Pro
+Inputs,ASR price per minute,$0.00 ,USD/min,Example estimate
+Inputs,TTS price per minute,$0.02 ,USD/min,Example estimate
+Inputs,Infra low estimate per month,$10.00 ,USD,Single-user lean infra
+Inputs,Infra high estimate per month,$40.00 ,USD,Single-user lean infra ceiling
+Calculations,Monthly interactions,300,interactions,
+Calculations,Monthly input tokens,360000,tokens,
+Calculations,Monthly output tokens,90000,tokens,
+Calculations,Low-cost input tokens,324000,tokens,
+Calculations,Low-cost output tokens,81000,tokens,
+Calculations,Premium input tokens,36000,tokens,
+Calculations,Premium output tokens,9000,tokens,
+OpenAI,OpenAI low-cost input cost,$0.08 ,USD/month,
+OpenAI,OpenAI low-cost output cost,$0.16 ,USD/month,
+OpenAI,OpenAI premium input cost,$0.06 ,USD/month,
+OpenAI,OpenAI premium output cost,$0.13 ,USD/month,
+OpenAI,OpenAI total LLM cost,$0.43 ,USD/month,
+Gemini,Gemini low-cost input cost,$0.10 ,USD/month,
+Gemini,Gemini low-cost output cost,$0.20 ,USD/month,
+Gemini,Gemini premium input cost,$0.05 ,USD/month,
+Gemini,Gemini premium output cost,$0.09 ,USD/month,
+Gemini,Gemini total LLM cost,$0.43 ,USD/month,
+Voice,Monthly voice interactions,$120.00 ,interactions,
+Voice,Monthly ASR minutes,$16.00 ,minutes,
+Voice,Monthly TTS minutes,$20.00 ,minutes,
+Voice,ASR cost,$0.05 ,USD/month,
+Voice,TTS cost,$0.30 ,USD/month,
+Voice,Total voice cost,$0.35 ,USD/month,
+Outputs,OpenAI total monthly (low infra),$10.78 ,USD/month,
+Outputs,OpenAI total monthly (high infra),$40.78 ,USD/month,
+Outputs,Gemini total monthly (low infra),$10.78 ,USD/month,
+Outputs,Gemini total monthly (high infra),$40.78 ,USD/month,
+Outputs,OpenAI cost per user (low infra),$10.78 ,USD/user/month,
+Outputs,OpenAI cost per user (high infra),$40.78 ,USD/user/month,
+Outputs,Gemini cost per user (low infra),$10.78 ,USD/user/month,
+Outputs,Gemini cost per user (high infra),$40.78 ,USD/user/month,
+Sanity checks,Routing share check,1,should be 1,Should equal 1

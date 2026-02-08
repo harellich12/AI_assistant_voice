@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Auto-sync Jira for commits being pushed.
+if ! command -v npm >/dev/null 2>&1; then
+  exit 0
+fi
+
+branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo main)"
+upstream="origin/${branch}"
+
+if git rev-parse --verify "${upstream}" >/dev/null 2>&1; then
+  npm run -s jira:sync -- --from "${upstream}" --to HEAD >/dev/null 2>&1 || {
+    echo "[pre-push] jira sync skipped/failed; push continues" >&2
+  }
+else
+  npm run -s jira:sync -- --from HEAD~1 --to HEAD >/dev/null 2>&1 || {
+    echo "[pre-push] jira sync skipped/failed; push continues" >&2
+  }
+fi

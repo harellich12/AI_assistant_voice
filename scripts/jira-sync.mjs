@@ -232,7 +232,9 @@ function hasGitRef(ref) {
 }
 
 function extractKeysFromText(text) {
-  const jiraKeys = new Set(text.match(/\b[A-Z][A-Z0-9]+-\d+\b/g) || []);
+  const jiraKeys = new Set(
+    (text.match(/\b[A-Z][A-Z0-9]+-\d+\b/g) || []).filter((k) => !/^TKT-\d+$/.test(k))
+  );
   const ticketIds = new Set(text.match(/\bTKT-\d+\b/g) || []);
   return { jiraKeys, ticketIds };
 }
@@ -259,7 +261,18 @@ async function transitionIssue(cfg, issueKey, transitionId) {
 async function addComment(cfg, issueKey, bodyText) {
   await jiraFetch(cfg, `/rest/api/3/issue/${issueKey}/comment`, {
     method: "POST",
-    body: JSON.stringify({ body: bodyText })
+    body: JSON.stringify({
+      body: {
+        type: "doc",
+        version: 1,
+        content: [
+          {
+            type: "paragraph",
+            content: [{ type: "text", text: bodyText }]
+          }
+        ]
+      }
+    })
   });
 }
 
@@ -325,16 +338,31 @@ async function syncFromCommits(cfg, args) {
     return;
   }
 
-  for (const issueKey of issueKeys) {
-    const transitionId = await getTransitionId(cfg, issueKey, transitionName);
-    await transitionIssue(cfg, issueKey, transitionId);
-    console.log(`transitioned ${issueKey} -> ${transitionName}`);
-    if (addCommitComment) {
-      const body = `Auto-sync update from git commits ${fromRef}..${toRef}.`;
-      await addComment(cfg, issueKey, body);
-      console.log(`commented on ${issueKey}`);
+  const keys = Array.from(issueKeys);
+  console.log(`resolved issue keys: ${keys.join(", ")}`);
+
+  let transitioned = 0;
+  for (const issueKey of keys) {
+    try {
+      const transitionId = await getTransitionId(cfg, issueKey, transitionName);
+      await transitionIssue(cfg, issueKey, transitionId);
+      console.log(`transitioned ${issueKey} -> ${transitionName}`);
+      transitioned += 1;
+      if (addCommitComment) {
+        const body = `Auto-sync update from git commits ${fromRef}..${toRef}.`;
+        try {
+          await addComment(cfg, issueKey, body);
+          console.log(`commented on ${issueKey}`);
+        } catch (err) {
+          console.log(`comment failed ${issueKey}: ${err.message}`);
+        }
+      }
+    } catch (err) {
+      console.log(`failed ${issueKey}: ${err.message}`);
     }
   }
+
+  console.log(`sync complete: transitioned ${transitioned}/${keys.length} issues`);
 }
 
 async function debugProject(cfg, args) {
